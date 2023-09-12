@@ -80,7 +80,6 @@ export default function OilPainting() {
         ref={canvasRef}
         onMouseDown={startDrawing}
         onMouseMove={continueDrawing}
-        onMouseLeave={clearCanvas}
         onDoubleClick={clearCanvas}
       ></canvas>
     </div>
