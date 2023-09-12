@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import "../App.css";
 
 function getRandomInt(min, max) {
-  return Math.round(Math.random() * (max - min + 1)) + min;
+  return Math.round(Math.random() * (max - min)) + min;
 }
 
-export default function Bubble() {
+export default function BubblePointer() {
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [balls, setBalls] = useState([]);
 
@@ -35,8 +35,7 @@ export default function Bubble() {
           0,
           255
         )}, ${getRandomInt(0, 255)})`;
-
-        const sizeInt = getRandomInt(10, 40);
+        const sizeInt = getRandomInt(5, 40);
         const size = { height: sizeInt + "px", width: sizeInt + "px" };
         const left =
           getRandomInt(mousePos.x - range - sizeInt, mousePos.x + range) + "px";

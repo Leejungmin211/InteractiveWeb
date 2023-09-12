@@ -1,61 +1,68 @@
-import React, { useRef, useEffect, useState } from "react";
+import { useRef, useEffect, useState } from "react";
 import "../App.css";
 
-function getRandomInt(min, max) {
-  return Math.round(Math.random() * (max - min + 1)) + min;
-}
-
-function OilPainting() {
+export default function OilPainting() {
   const canvasRef = useRef(null);
   const contextRef = useRef(null);
+  const [startPos, setStartPos] = useState({
+    x: window.innerWidth,
+    y: window.innerHeight,
+  });
+  const [prevPos, setPrevPos] = useState({ x: window.innerWidth, y: window.innerHeight });
+  const [dist, setDist] = useState({ x: 0, y: 0 });
   const [colour, setColour] = useState(
     "#" + Math.floor(Math.random() * 16777215).toString(16)
   );
 
   useEffect(() => {
     const canvas = canvasRef.current;
+
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
 
     const context = canvas.getContext("2d");
-    context.strokeStyle = colour;
-    context.fillStyle = colour;
-    context.lineWidth = 3;
     contextRef.current = context;
-  }, [colour]);
+  }, []);
 
   const startDrawing = () => {
     const newColour = "#" + Math.floor(Math.random() * 16777215).toString(16);
     setColour(newColour);
+
     contextRef.current.strokeStyle = newColour;
     contextRef.current.fillStyle = newColour;
   };
 
-  const continueDrawing = (e) => {
+  const continueDrawing = (event) => {
     if (!contextRef.current) return;
-    const { clientX, clientY } = e;
+    const { clientX, clientY } = event;
     const distance = Math.sqrt(
-      Math.pow(clientX - contextRef.current.canvas.offsetLeft, 2) +
-        Math.pow(clientY - contextRef.current.canvas.offsetTop, 2)
+      Math.pow(prevPos.x - startPos.x, 2) + Math.pow(prevPos.y - startPos.y, 2)
     );
     const a = distance * 10 * (Math.pow(Math.random(), 2) - 0.5);
     const r = Math.random() - 0.5;
     const size = (Math.random() * 15) / distance;
-    const startX = clientX + 30;
-    const startY = clientY + 30;
-    const newDistX = (clientX - startX) * Math.sin(0.5) + clientX;
-    const newDistY = (clientY - startY) * Math.cos(0.5) + clientY;
-    contextRef.current.lineWidth = getRandomInt(1, 30) + size;
-    contextRef.current.strokeWidth = getRandomInt(1, 3) + size;
+    const newDistX = (prevPos.x - startPos.x) * Math.sin(0.5) + startPos.x;
+    const newDistY = (prevPos.y - startPos.y) * Math.cos(0.5) + startPos.y;
+
+    setDist({x: newDistX, y: newDistY})
+    setStartPos({ x: prevPos.x, y: prevPos.y });
+    setPrevPos({ x: clientX, y: clientY });
+
+    const randomWidth =
+      (Math.random() + 20 / 10 - 0.5) * size +
+      (1 - Math.random() + 30 / 20 - 0.5) * size;
+
+    contextRef.current.lineWidth = randomWidth;
+    contextRef.current.strokeWidth = randomWidth;
     contextRef.current.lineCap = "round";
     contextRef.current.lineJoin = "round";
     contextRef.current.beginPath();
-    contextRef.current.moveTo(startX, startY);
-    contextRef.current.quadraticCurveTo(newDistX, newDistY, clientX, clientY);
+    contextRef.current.moveTo(startPos.x, startPos.y);
+    contextRef.current.quadraticCurveTo(dist.x, dist.y, prevPos.x, prevPos.y);
     contextRef.current.strokeStyle = colour;
     contextRef.current.fillStyle = colour;
-    contextRef.current.moveTo(startX + a, startY + a);
-    contextRef.current.lineTo(startX + r + a, startY + r + a);
+    contextRef.current.moveTo(startPos.x + a, startPos.y + a);
+    contextRef.current.lineTo(startPos.x + r + a, startPos.y + r + a);
     contextRef.current.stroke();
     contextRef.current.fill();
     contextRef.current.closePath();
@@ -74,9 +81,9 @@ function OilPainting() {
         onMouseDown={startDrawing}
         onMouseMove={continueDrawing}
         onMouseLeave={clearCanvas}
+        onDoubleClick={clearCanvas}
       ></canvas>
     </div>
   );
 }
 
-export default OilPainting;

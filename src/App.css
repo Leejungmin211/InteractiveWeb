@@ -8,15 +8,12 @@
 .pointer {
   pointer-events: none;
   position: absolute; 
-  width: 10px;
-  height: 10px;
   border-radius: 50%; 
-  background: rgb(240, 167, 167);
-  animation: implode 0.5s ease-in-out;
+  animation: fadeOut 0.5s ease-in-out;
   animation-fill-mode: both;
   opacity: .5;
 }
 
-@keyframes implode {
+@keyframes fadeOut {
   100% {transform: scale(0)}
 }
