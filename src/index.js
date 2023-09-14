@@ -1,13 +1,19 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import BubblePointer from './components/BubblePointer';
-import OilPainting from './components/OilPainting';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import "./index.css";
+import App from "./App";
+import BubblePointer from "./components/BubblePointer";
+import OilPainting from "./components/OilPainting";
+import HoverEffect from "./components/HoverEffect";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const queryClient = new QueryClient();
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <OilPainting />
+    <QueryClientProvider client={queryClient}>
+      <HoverEffect />
+    </QueryClientProvider>
   </React.StrictMode>
 );
