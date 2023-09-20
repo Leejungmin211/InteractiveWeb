@@ -7,50 +7,56 @@ export default function HoverItem({ item }) {
   const [clipY, setClipY] = useState(0);
   const [clipRadius, setClipRadius] = useState(0);
 
-  const getCoordinates = (e) => {
-    const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-    const point = svg.createSVGPoint();
-    point.x = e.clientX;
-    point.y = e.clientY;
-    return point.matrixTransform(svg.getScreenCTM().inverse());
-  };
-
-  const mouseEnterHandler = () => {
-    setClipRadius(100);
-  };
-
   const mouseMoveHandler = (e) => {
-    console.log(e.clientX);
-    const { clientX, clientY } = getCoordinates(e);
-    setClipRadius(100);
-    setClipX(clientX);
-    setClipY(clientY);
+    const { clientX, clientY } = e;
+    const svgElement = document.getElementById(`${id}`);
+    setClipRadius(150);
+
+    if (svgElement) {
+      const svgRect = svgElement.getBoundingClientRect();
+      const svgX = svgRect.left;
+      const svgY = svgRect.top;
+      const clipX = clientX - svgX;
+      const clipY = clientY - svgY;
+
+      setClipX(clipX);
+      setClipY(clipY);
+    }
   };
 
   const mouseLeaveHandler = () => {
-    setClipRadius(0);
+    const svgElement = document.getElementById(`${id}`);
+    if (svgElement) {
+      setClipRadius(0);
+    }
   };
 
   return (
     <li
       className="hover-li-list"
-      onMouseEnter={mouseEnterHandler}
+      onMouseEnter={mouseMoveHandler}
       onMouseMove={mouseMoveHandler}
       onMouseLeave={mouseLeaveHandler}
     >
-      <svg viewBox="0 0 290 290" preserveAspectRatio="xMidYMid slice">
-        <defs>
-          <clipPath id={`clip-${id}`} clipPathUnits="objectBoundingBox">
-            <circle cx={clipX} cy={clipY} r={clipRadius} fill="#000" />
-          </clipPath>
-        </defs>
+      <svg
+        id={`${id}`}
+        viewBox="0 0 290 290"
+        preserveAspectRatio="xMidYMid slice"
+        className="hover-svg"
+      >
+        {url && (
+          <defs>
+            <clipPath id={`clip-${id}`} clipPathUnits="userSpaceOnUse">
+              <circle cx={clipX} cy={clipY} r={clipRadius} fill="transparent" />
+            </clipPath>
+          </defs>
+        )}
         {url && (
           <image
-            xlinkHref={url}
+            href={url}
             alt={text}
-            style={{
-              clipPath: `url(#clip-${id})`,
-            }}
+            className="hover-image"
+            style={{ clipPath: `url(#clip-${id})` }}
           />
         )}
       </svg>
