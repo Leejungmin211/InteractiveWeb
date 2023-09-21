@@ -1,4 +1,4 @@
-#wrap {
+.wrap {
   width: 100vw;
   height: 100vh;
   position: relative;
@@ -64,4 +64,43 @@ circle {
 .hover-li-list:hover circle,
 .hover-li-list:hover .hover-image {
   transform: scale(1);
+}
+
+.letter-container {
+  color: white;
+}
+
+.flex-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  gap: 150px;
+}
+
+.flex-text {
+  width: 600px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.hover-size-text {
+  opacity: 0.6;
+  letter-spacing: 1px;
+  transition: all 1s ease-in-out;
+}
+
+.hover-size-text:hover {
+  font-size: 70px;
+  opacity: 1;
+  letter-spacing: 3px;
+  animation: shiny 3s ease-in-out infinite;
+}
+
+@keyframes shiny {
+  100% {
+    text-shadow: 0 0 7px #fff, 0 0 10px #fff, 0 0 21px #fff, 0 0 42px #0fa,
+      0 0 82px #0fa, 0 0 92px #0fa, 0 0 102px #0fa, 0 0 151px #0fa;
+  }
 }

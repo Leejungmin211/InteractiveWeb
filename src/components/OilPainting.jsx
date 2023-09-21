@@ -75,7 +75,7 @@ export default function OilPainting() {
   };
 
   return (
-    <div id="wrap">
+    <div className="wrap">
       <canvas
         ref={canvasRef}
         onMouseDown={startDrawing}

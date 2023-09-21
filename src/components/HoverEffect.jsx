@@ -9,7 +9,7 @@ export default function HoverEffect() {
   });
 
   return (
-    <section id="wrap">
+    <section className="wrap">
       <ul className="hover-ul-list">
         {data &&
           data.map((item) => {

@@ -64,7 +64,7 @@ export default function BubblePointer() {
   }, [mousePos, balls]);
 
   return (
-    <div id="wrap">
+    <div className="wrap">
       {balls.map((ball) => (
         <div key={ball.id} className="pointer" style={ball.style}></div>
       ))}
