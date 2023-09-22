@@ -1,4 +1,11 @@
-html, body {
+html,
+body {
   margin: 0;
   background: #222;
+  cursor: none;
+}
+
+ul,
+li {
+  list-style: none;
 }

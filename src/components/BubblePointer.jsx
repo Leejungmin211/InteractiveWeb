@@ -25,7 +25,7 @@ export default function BubblePointer() {
       window.removeEventListener("mousemove", mouseMoveHandler);
       window.removeEventListener("mouseleave", mouseLeaveHandler);
     };
-  }, []); 
+  }, []);
 
   useEffect(() => {
     const draw = setInterval(() => {
@@ -64,11 +64,10 @@ export default function BubblePointer() {
   }, [mousePos, balls]);
 
   return (
-    <div className="wrap">
+    <>
       {balls.map((ball) => (
         <div key={ball.id} className="pointer" style={ball.style}></div>
       ))}
-    </div>
+    </>
   );
 }
-
