@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 export default function MousePointer() {
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [isHovered, setIsHovered] = useState(false);
-  console.log(isHovered);
 
   useEffect(() => {
     const mouseMoveHandler = (e) => {

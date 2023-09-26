@@ -3,6 +3,7 @@
   height: 100vh;
   position: relative;
   overflow: hidden;
+  color: white;
 }
 
 /* BubblePointer ball */
@@ -71,12 +72,10 @@ circle {
 /* HoverLetter */
 .flex-container {
   display: flex;
-  height: 100%;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 70px;
-  color: white;
 }
 
 .flex-text {
@@ -119,8 +118,8 @@ circle {
   position: fixed;
   border-radius: 50%;
   background-color: green;
-  width: 50px;
-  height: 50px;
+  width: 30px;
+  height: 30px;
   pointer-events: none;
 }
 
@@ -158,4 +157,20 @@ circle {
     height: 50px;
     opacity: 1;
   }
+}
+
+/* TextAnimation */
+.text-animation {
+text-align: center;
+margin: 100px;
+font-size: 70px;
+letter-spacing: 5px;
+text-transform: uppercase;
+border-radius: 10px;
+padding: 20px;
+}
+
+.text-animation:hover {
+  background-color: #fffafa;
+  color: #101010;
 }
