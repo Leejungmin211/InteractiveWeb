@@ -1,5 +1,5 @@
 import "./App.css";
-import HoverLetter from "./components/HoverLetter";
+import AnimationButton from "./components/AnimationButton";
 import MousePointer from "./components/MousePointer";
 import TextAnimation from "./components/TextAnimation";
 
@@ -8,7 +8,7 @@ function App() {
     <main className="wrap">
       <MousePointer />
       <TextAnimation />
-      <HoverLetter />
+      <AnimationButton />
     </main>
   );
 }

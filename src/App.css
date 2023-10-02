@@ -161,16 +161,21 @@ circle {
 
 /* TextAnimation */
 .text-animation {
-text-align: center;
+display: inline-block;
 margin: 100px;
 font-size: 70px;
 letter-spacing: 5px;
 text-transform: uppercase;
 border-radius: 10px;
-padding: 20px;
+padding: 30px 40px;
 }
 
 .text-animation:hover {
   background-color: #fffafa;
   color: #101010;
+}
+
+/* AnimationButton */
+.custom-btn {
+margin: 20px;
 }

@@ -1,16 +1,23 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function TextAnimation() {
   const [text, setText] = useState("FRONTEND DEVELOPER");
-  let write = null;
+  const [write, setWrite] = useState(null);
 
-  const mouseOverHandler = (e) => {
+  useEffect(() => {
+    return () => {
+      if (write !== null) {
+        clearInterval(write);
+      }
+    };
+  }, [write]);
+
+  const mouseOverHandler = () => {
     const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    let iteration = 0;
-    // const splitText = e.target.innerText;
     const splitText = "Leejungmin";
+    let iteration = 0;
 
-    write = setInterval(() => {
+    const intervalId = setInterval(() => {
       const newText = [...splitText]
         .map((letter, index) => {
           if (index < iteration) {
@@ -23,14 +30,19 @@ export default function TextAnimation() {
       setText(newText);
 
       if (iteration >= splitText.length) {
-        clearInterval(write);
+        clearInterval(intervalId);
       }
       iteration += 1;
     }, 50);
+
+    setWrite(intervalId);
   };
 
   const mouseLeaveHandler = () => {
-    clearInterval(write);
+    if (write !== null) {
+      clearInterval(write);
+      setWrite(null);
+    }
     setText("FRONTEND DEVELOPER");
   };
 
